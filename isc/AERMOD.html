@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>ISCSTnAERMOD</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+     
+     
+    <script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
+    
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css">
+    
+    <script src="filepicker/samples/jquery.example.js"></script>
+    <!script src="../../mugen.js/src/mugine.js"></script>
+    <script src="filepicker/src/js/jquery.filepicker.js"></script>
+    <link rel="stylesheey" href="filepicker/src/css/filepicker.default.css">
+    
+    <script>
+       $(document).ready(function() {
+         $("input[type='file'].filepicker-jquery-ui").filepicker({
+           style: 'jquery-ui'
+         });
+       });
+    </script>
+    
+    <style>
+      .filepicker-preview .thumbnail {
+        max-width: 100px;
+        display: inline-block;
+      }
+      .filepicker-preview .thumbnail img {
+        max-width: 100%;
+      }
+    </style>
+    <script>
+    $(document).ready(function(){
+    // Get value on button click and show alert
+        $("#myBtn").click(function(){
+            var str = $("#myInput").val();
+            alert(str);
+        });
+    });
+    </script>    
+<style> #SIDE { width:300px; float:right; } </style>
+  </head>
+  
+  <body>
+    <header class="subhead" id="overview">
+      <div class="container">
+        <h1>
+		<a href="aermods.html">ISCST/AERMOD遠端計算服務</a>
+		</h1>
+        <p class="lead">
+		輸入檔範例如下。至少須輸入主控檔與氣象檔(AERMOD需地面與高空分開2檔)，複雜地形尚需地形檔。
+        </p>
+      </div>
+    </header>
+  
+    <div class="container">
+    
+      <div class="row">
+        <div class="col-md-6">
+	<form id="upload" name="upload" method="POST" enctype="multipart/form-data" action="/cgi-bin/isc/AERMOD.py">
+           <p><input data-label="File:" class="filepicker-jquery-ui" type="file" 
+		   placeholder="Run stream(.inp) file..." multiple="multiple" name="filename1"/> </p> 
+           <p><input data-label="File:" class="filepicker-jquery-ui" type="file" 
+		   placeholder="Meteo. (.asc or .srf)file..." multiple="multiple" name="filename2"/> </p> 
+           <p><input data-label="File:" class="filepicker-jquery-ui" type="file" 
+		   placeholder="Upper air(.pfl) for AERMOD..." multiple="multiple" name="filename3"/> </p> 
+           <p><input data-label="File:" class="filepicker-jquery-ui" type="file" 
+		   placeholder="Optional Terrain(.rec) file..." multiple="multiple" name="filename4"/> </p> 
+
+	<fieldset>
+       <label for="model">選擇模式</label>
+        <select name="model" id="model">
+          <option value="ISCST"  selected="selected">ISCST</option>
+          <option value="AERMOD">AERMOD</option>
+        </select>
+      </fieldset>
+
+
+	   <p style="text-align:center;"> <input type="submit" value="Run Model (need 3min at least)" /></p>
+	</form><p>	 </p><p>	 </p>
+		<p>Contact: Dr. Yungchuan Kuang, sinotec2@gmail.com or visit <a href="https://www.evernote.com/shard/s125/sh/162deec8-edc3-4516-87d2-a0efda7764a4/e0841e0b1e62e2c29c130da0625af7cf">Dr.Kuang's Evernote</a></p> 
+         </div>
+
+<table width="70%" class="properties">
+  <tr>
+    <th scope="row" width="10%">類別 </th>
+    <th scope="row" width="20%">ISCST設定內容 </th>
+    <th scope="row" width="20%">AERMOD設定內容 </th>
+    <th scope="row" width="10%">說明 </th>
+  </tr>
+<tr><td>輸入檔案 </td>
+<td>case_SO2.inp<a href="http://114.32.164.198/isc_results/case_SO2i.inp">(CONC)</a>,
+<a href=isc_results/case_SO2i.inp_WDEP>(WDEP)</a>
+<td>case_SO2.inp<a href="http://114.32.164.198/isc_results/case_SO2.inp">(CONC)</a>,
+<a href=isc_results/case_SO2.inp_WDEP>(WDEP)</a>
+
+</td><td>模式主控檔 </td></tr>
+<tr><td></td><td><a href="http://114.32.164.198/isc_results/46741v01.asc">46741v01.asc,</a></td><td><a href="http://114.32.164.198/isc_results/hs1hs2c.sfc">hs1hs2c.sfc,</a><a href="http://114.32.164.198/isc_results/hs1hs2c.pfl"> hs1hs2c.pfl</a> </td><td>
+氣象檔案</td></tr>
+<tr><td> </td><td></td><td><a href="http://114.32.164.198/mmif_results/2016/IJ15041Y16.sfc">IJ15041Y16.sfc,</a><a href="http://114.32.164.198/mmif_results/2016/IJ15041Y16.pfl"> IJ15041Y16.pfl</a> </td><td>
+氣象檔案</td></tr>
+<tr><td>輸出檔 </td>
+<td><a href=isc_results/case_SO2i.out>case_SO2.out</a></td>
+<td><a href=isc_results/case_SO2.out>case_SO2.out</a></td>
+<td>程式螢幕輸出 </td></tr>
+<tr><td> </td>
+<td><a href=isc_results/case_SO2i.SUM>case_SO2.SUM</a></td>
+<td><a href=isc_results/case_SO2.SUM>case_SO2.SUM</a></td>
+<td>執行成果摘要 </td></tr>
+<tr><td> </td>
+<td><a href=isc_results/case_SO2_1Hi.PLT>case_SO2_1H.PLT</a></td>
+<td><a href=isc_results/case_SO2_1H.PLT>case_SO2_1H.PLT</a></td>
+<td>小時值網格濃度 </td></tr>
+<tr><td> </td>
+<td><a href=isc_results/case_SO2_YRi.PLT>case_SO2_YR.PLT</a></td>
+<td><a href=isc_results/case_SO2_YR.PLT>case_SO2_YR.PLT</a></td>
+<td>年平均網格濃度結果 </td></tr>
+      </div>
+    </div>
+<div id="SIDE"> <img src="/isc_results/fort10.png" width="300" height="200" style="border:2px #ccc solid;padding:5px;" >   </div>
+    
+  </body>
+  
+</html>
