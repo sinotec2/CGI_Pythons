@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>AERMODs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+     
+     
+    <script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
+    
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css">
+    
+    <script src="filepicker/samples/jquery.example.js"></script>
+    <!script src="../../mugen.js/src/mugine.js"></script>
+    <script src="filepicker/src/js/jquery.filepicker.js"></script>
+    <link rel="stylesheet" href="filepicker/src/css/filepicker.default.css">
+    
+    <script>
+       $(document).ready(function() {
+         $("input[type='file'].filepicker-jquery-ui").filepicker({
+           style: 'jquery-ui'
+         });
+       });
+    </script>
+    
+    <style>
+      .filepicker-preview .thumbnail {
+        max-width: 100px;
+        display: inline-block;
+      }
+      .filepicker-preview .thumbnail img {
+        max-width: 100%;
+      }
+    </style>
+    <script>
+    $(document).ready(function(){
+    // Get value on button click and show alert
+        $("#myBtn").click(function(){
+            var str = $("#myInput").val();
+            alert(str);
+        });
+    });
+    </script>    
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#year" )
+      .selectmenu( "menuWidget" )
+        .addClass( "overflow" );
+  } );
+  </script>
+
+  </head>
+  
+  <body>
+
+    <header class="subhead" id="overview">
+      <div class="container">
+        <h1><a href="https://www.evernote.com/shard/s125/sh/181eef2d-346c-4c93-936a-0b14bdc5d732/2bca53e918200135da05308d63d14c37">ISC/AERMODs 遠端執行系統教學網站</a></h1>
+        <p class="lead">
+請先在
+<a href="http://114.32.164.198/LeafletDigitizer/index.html">地圖上</a>
+點選煙囪位置(及附近建築物頂點)，並將結果(
+<a href="isc_results/example.kml.txt">kml</a>
+格式)上傳，遠端將進行AERMOD系統之計算服務，如輸入email系統會將所有結果電郵到您的信箱。
+        </p>
+      </div>
+    </header>
+  
+    <div class="container">
+    
+      <div class="row">
+        <div class="col-md-4">
+		<form enctype="multipart/form-data" action="/cgi-bin/isc/rd_kmlFull.py" method="post">
+           <p><input data-label="File:" class="filepicker-jquery-ui" type="file" 
+		   placeholder="Select a file..." multiple="multiple"
+		   name="filename"/> </p>
+      <fieldset>
+       <label for="year">year of WRF data</label>
+        <select name="year" id="year">
+          <option value="2016"  selected="selected">2016</option>
+          <option value="2017">2017</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+          <option value="2020">2020</option>
+        </select>
+      </fieldset>
+ 
+           <p> 您的 EMAIL:  
+		   <input type="text" id="myInput" name="emailadd"> <button type="button" id="myBtn">check</button></p>
+		   <p style="text-align:center;"> <input type="submit" value="Upload and Run AERMODs remotely" /></p>
+		</form><p>	 </p><p>	 </p>
+		<p></p>
+		<p>Introduction of 
+<a href="https://gaftp.epa.gov/Air/aqmg/SCRAM/models/preferred/aermod/aermod_userguide.pdf">AERMOD</a>, 
+<a href="https://gaftp.epa.gov/Air/aqmg/SCRAM/models/related/aermap/aermap_userguide_v18081.pdf">AERMAP</a>,
+<a href="https://gaftp.epa.gov/Air/aqmg/SCRAM/models/other/iscprime/useguide.pdf">BPIP's</a>, 
+<a href="https://gaftp.epa.gov/Air/aqmg/SCRAM/models/related/mmif/MMIFv3.4.1_Users_Manual.pdf"> MMIF</a> etc, please visit <a href="https://www.epa.gov/scram/air-quality-dispersion-modeling-related-model-support-programs#mmif"> USEAP SCRAM</a>. </p> 
+<p>EverNote about this web site:<a href="https://www.evernote.com/l/AH1Khhj172hCgKtXeZzw6NJ0vtuSMSSvbow">aermods</a></p>
+<p>Domestic thesis using AERMOD:<a href="http://114.32.164.198/AERMOD_review.html">THESIS</a></p>
+		<p>Contact: Dr. Yungchuan Kuang, sinotec2@gmail.com<br>or LINE:sinotec2</p> 
+		<p>Web site working hours:07:00~19:00, Mon~Fri</p>
+         </div>
+<table BORDER=2 RULES=ROWS FRAME=BOX width="65%">
+  <tr>
+    <th width="10%">項目<br>subprocess</th>
+    <th width="25%">說明</th>
+    <th width="15%">範例</th>
+    <th width="10%">檢核</th>
+    <th width="5%">筆記</th>
+  </tr>
+
+<tr><td><a href=LeafletDigitizer/index.html>數位板Digitizer</a></td><td>點選煙囪位置(或與)建築物之4個角落<br>逆時鐘方向點選
+</td><td><a href="isc_results/example.kml.txt">kml</a></td><td><a href=Leaflet/docs/index.html>Leaflet</a></td>
+<td><a href="https://www.evernote.com/l/AH05gCKXDqlFmpmrGue0x4PasFygFYMwUnc">地圖數位板</a></td></tr>
+
+<tr><td><a href=rotate_kml.html>rotate_kml</a></td><td>旋轉煙囪(或與)建築物角落座標</td><td><a href="isc_results/example.kml.txt">kml</a>→<a href="/isc_results/fort.10">fort.10</a></td><td><a href=Leaflet/docs/index.html>Leaflet</a></td>
+<td><a href="https://www.evernote.com/shard/s125/sh/a1bcda82-4899-43ab-a499-38e618331e33/8a657ee1c75b7d067779e707d6295489">Rotate_KML</a></td></tr>
+<tr><td><a href="http://114.32.164.198/BPIPPRIM.html">BPIPPRIM</a></td><td>建築物前處理<br>DATED 04274(October 1, 2004)</td><td>
+<a href="/isc_results/fort.10">fort.10</a>→
+<a href="/isc_results/fort.12">fort.12</a>,<a href="/isc_results/fort.14">14</a>,
+<a href="/isc_results/build.txt">build.txt</a></td><td><a href=iscParser.html>iscParser</a></td>
+<td><a href="https://www.evernote.com/shard/s125/sh/162deec8-edc3-4516-87d2-a0efda7764a4/e0841e0b1e62e2c29c130da0625af7cf">BPIP</a><br>
+<a href="https://www.evernote.com/l/AH1ZwAEhv0kIepWwwWcdzMSPHPX8-U7YzEA">isc_Parser</a>
+</td></tr>
+
+<tr><td>污染源名稱</td>
+<td>英文表示，名稱將合併成個案名稱</td>
+<td>如stk1、stk2，case name=stk1stk2</td><td></td><td></td></tr>
+<tr><td>建築物名稱</td>
+<td>英文表示，並請加註高度</td>
+<td>如：build1,35、office_10、plnt 15</td><td></td><td></td></tr>
+<tr><td>污染源基本資料</td>
+<td>依據環保署TEDS10(2016)</td>
+<td><a href="isc_results/point_QC.csv">point_QC.csv</a>(排放量、煙囪高、內徑、溫度、流速)</td>
+<td><a href="http://umap.openstreetmap.fr/zh/map/teds10-point-data-pm25_594438">PM2.5 points on UMAP</td>
+<td><a href="https://www.evernote.com/l/AH35L_XW_VNLUKrj0p5_VQZn_LOwHxkr1pU">read_point.py</a><br>
+
+<tr><td><a href="terrain.html">AERMAP</a></td><td>地形前處理<br>DATED 18081(March 22, 2018)</td>
+<td>aermap.inp, tiff/dem/kml see <a href=http://umap.openstreetmap.fr/zh/map/twn1x1-aermap-results_593832>point results in 1Km grids</a></td><td></td>
+<td><a href="https://www.evernote.com/shard/s125/sh/b9f6fbb4-da39-4c2a-91cd-46d2c37ee11e/d0528368651ce6ab04709d8f05352f0f">煙流模式的地形處理</a></td></tr>
+<tr><td>地表高程數據</td><td>
+<a href="https://www2.mmm.ucar.edu/wrf/users/download/get_sources_wps_geog.html">mmm.ucar</a> and 
+<a href="https://lpdaac.usgs.gov/products/srtmgl1nv003/">NASA SRTMGL1N</a>
+</td><td><a href="http://114.32.164.198/terr_results/geo_em.d04_333m.nc">geo_em.d04_333m.nc</a>(50MB)</td><td><a href="http://meteothink.org/">MeteoInfo</a></td>
+<td><a href="https://www.evernote.com/l/AH0eigK_oLBFkZHF-xh-q06LrTV-W9D7SjQ">地圖貼板</a></td></tr>
+
+<tr><td><a href="mmif.html">MMIF</a></td><td>氣象前處理<br>VERSION 3.4.1 2019-03-11</td><td>
+<a href="http://umap.openstreetmap.fr/zh/map/3km_590688#8/23.712/122.009">2016~20 results in 3Km grids</a></br>
+<a href="isc_results/mmif.inp">mmif.inp</a>→
+<a href="isc_results/hs1hs2c.sfc">hs1hs2c.sfc</a>,<a href="isc_results/hs1hs2c.pfl"> hs1hs2c.pfl</a></br>required 90-minutes for a NEW location.</td><td>check sfc by <a href="wrose.html">WROSE</a></td>
+<td><a href="http://www.evernote.com/l/AH1ak33sij9N04zMJl0I1g29T1U5aaEs9mU/">MMIF</a><br>
+<a href="https://www.evernote.com/shard/s125/sh/12eaea92-0fcc-4f54-9782-cb16f5a91be8/4653be8827311800fd1e237da43af3df">wrose.py</a><br>
+</td></tr>
+
+<tr><td>氣象數據</td><td>2020中央氣象局每日WRF預報</br>(3公里解析度)
+</td><td></td><td></td>
+<td><a href="https://www.evernote.com/shard/s125/sh/b3f7003a-fd1d-4918-b617-1acb90b45219/25b5cbe6b72feca8dc5f0cec636eee78">WRF_3Km</a></td></tr>
+
+<tr><td><a href="http://114.32.164.198/AERMOD.html">ISC/AERMOD</a></td><td>主程式<br>v19191(July 10, 2019)</td><td><a href=isc_results/case_SO2.inp>case_SO2.inp</a>→<a href=isc_results/case_SO2_Y.PLT>SO2_Y.PLT.kml</a></td><td><a href=dat2kml.html>dat2kml</a></br>
+<a href=chrpleth.html>chloropleth</a></br><a href=NCLonOTM.html>NCLonOTM</a></td>
+<td><a href="https://www.evernote.com/shard/s125/sh/53370208-a1f4-40c7-b99f-9e654edb1cfc/bd79d1913bb66b179086678abf16fd47">dat2kml</a></br>
+<a href="https://www.evernote.com/shard/s125/nl/13524244/c7684b04-32a8-4066-82e8-a79cfb245291">NCL_choropleth</a></br>
+<a href="https://www.evernote.com/l/AH1ZFa-yyEFERI0UTUEr0UwL2miZu41C9O4">OTM與NCL等值圖</a>
+</td></tr>
+
+<tr><td>平坦地形個案</td><td>興達電廠2部燃煤機組
+</td><td><a href="isc_results/example.kml">kml</a>→<a href="isc_results/case_result.zip">zip</a></td><td><a href=Leaflet/docs/index.html>Leaflet</a></td><td></td></tr>
+<tr><td>複雜地形個案</td><td>協和電廠2部燃油機組
+</td><td><a href=isc_results/ComplexTer.kml>kml</a>,<a href=isc_results/XieHePP/xieh1xie_PM25.inp>inp</a>,<a href=isc_results/XieHePP/xieh1xie.REC>REC</a>→<a href=isc_results/ComplexTer.zip>zip</td><td><a href=dat2kml.html>dat2kml</a></td><td></td></tr>		 
+<tr><td><a href=OLM.html>OLM</td><td>Ozone Limiting Method</br>convert NOx to NO2</td><td><a href=isc_results/result.dat>NO2 result.dat</a>→</td><td><a href=dat2kml.html>dat2kml</a></td> 
+<td><a href="https://www.evernote.com/shard/s125/sh/540ad12d-dfaf-4ce3-9a89-152c608d8631/9a218aa798b1e19f4734abd3f4b5150d">OLM</a></td></tr>
+      </div>
+
+    </div>
+    
+  </body>
+  
+</html>
