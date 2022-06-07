@@ -42,14 +42,14 @@ print 'Content-Type: text/html\n\n'
 print open(CGI+'header.txt','r')
 fname=fnames[0]
 print """\
-<p>filename given and save as: <a href="%s">%s</a></br></p>
+<p>filename given and save as: <a href="%s" target="_blank">%s</a></br></p>
 """% (fname.replace(WEB,'../../../'),fname.split('/')[-1])
 print """\
   <p>BPIPPRIN_results: The download process should start shortly. If it doesn't, click:</p>
   """
 for fname in fnames[1:]:
   print """\
-  <a data-auto-download href="%s">%s</a>
+  <a href="%s" target="_blank">%s</a>
   """  % (fname.replace(WEB,'../../../'),fname.split('/')[-1])
 print """\
   </body>

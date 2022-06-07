@@ -1,6 +1,6 @@
 #!/opt/anaconda3/envs/py37/bin/python
-# -*- coding: UTF-8 -*-
 
+# -*- coding: UTF-8 -*-
 import cgi, os, sys
 import cgitb; cgitb.enable()
 import tempfile as tf
@@ -51,13 +51,17 @@ OUT=' >> '+pth+'isc.out'
 
 print ('Content-Type: text/html\n\n')
 with open(CGI+'header.txt','r') as f:
-  lines=[l for l in f]
+  lines=[i.strip('\n').strip('\r') for i in f]
   for l in lines:
     print (l)
 cpu=subprocess.check_output(CPU,shell=True).decode('utf8').strip('\n')
-print ('<p> cpu='+cpu+'<br></p>')
+print ('<br>cpu='+cpu+'</br>')
 if float(cpu)>500:
   sys.exit()
+  print ('</body></html>')
+  sys.stdout.close()
+  sys.exit('fine!')
+
 form = cgi.FieldStorage()
 try:
   fileitem = form['filename']
@@ -68,7 +72,7 @@ except:
 year = form['year'].value
 yy=year[2:]
 year=int(year)
-emailadd = form.getvalue('emailadd')
+emailadd = '' #form.getvalue('emailadd')
 
 fn = os.path.basename(fileitem.filename)
 open(pth+fn, 'wb').write(fileitem.file.read())
@@ -79,7 +83,8 @@ nplgs,npnts,names,hgts,lon,lat,lonp,latp=rd_kmlLL(kml_file)
 nplms=nplgs+npnts
 print ('<p>filename given (and save as):'+pth+fn+'</br></p>')
 
-Latitude_Pole, Longitude_Pole = 23.61000, 120.9900
+#Latitude_Pole, Longitude_Pole = 23.61000, 120.9900
+Latitude_Pole, Longitude_Pole = np.mean(lat),np.mean(lon)
 Xcent, Ycent = twd97.fromwgs84(Latitude_Pole, Longitude_Pole)
 pnyc = Proj(proj='lcc', datum='NAD83', lat_1=10, lat_2=40,
         lat_0=Latitude_Pole, lon_0=Longitude_Pole, x_0=0, y_0=0.0)
@@ -123,6 +128,11 @@ for i in range(nplgs):
   Pn[i,1,1],Pn[i,2,1]=y2,y2
 Pn[:,:,0]=Pn[:,:,0]+dx
 Pn[:,:,1]=Pn[:,:,1]+dy
+
+Latitude_Pole, Longitude_Pole = 23.61000, 120.9900
+Xcent, Ycent = twd97.fromwgs84(Latitude_Pole, Longitude_Pole)
+pnyc = Proj(proj='lcc', datum='NAD83', lat_1=10, lat_2=40,
+        lat_0=Latitude_Pole, lon_0=Longitude_Pole, x_0=0, y_0=0.0)
 nc = netCDF4.Dataset(GEO, 'r')
 v='HGT_M'
 elv=np.array(nc.variables[v][0,:,:])
@@ -149,12 +159,10 @@ Pp[:,1]+=-orig[1] #-mny
 
 #the stack heights are read from TEDS database IF that hgts are not contained in the name strings
 df=read_csv(tedsp_name)
-df.UTM_E+=Xcent
-df.UTM_N+=Ycent
 a=[]
 for ll in range(1,6):
-  L=ll*1000
-  a=df.loc[df.UTM_E.map(lambda s:abs(s-P[0][0])<L) & df.UTM_N.map(lambda s:abs(s-P[0][1])<L)]
+  L=ll*0.01 # 1deg~100Km
+  a=df.loc[df.LON.map(lambda s:abs(s-lonp[0])<L) & df.LAT.map(lambda s:abs(s-latp[0])<L)]
   if len(a)>0:
     df=a
     break	
@@ -170,9 +178,14 @@ tims=[ 'DY1', 'HD1', 'HY1']
 for v in cole+hdtv+tims:
   exec(v+'=[]')
 for k in range(npnts):
-  df['dist']=[np.sqrt((i-P[k][0])**2+(j-P[k][1])**2) for i,j in zip(list(df.UTM_E),list(df.UTM_N))] 
+  if len(hgts)==nplgs+npnts:
+    hstk=hgts[nplgs+k]
+    df['dist']=[np.sqrt((i-lonp[k])**2+(j-latp[k])**2+(h-hstk)**2) for i,j,h in zip(list(df.LON),list(df.LAT),list(df.HEI))] 
+  else: 
+    df['dist']=[np.sqrt((i-lonp[k])**2+(j-latp[k])**2) for i,j in zip(list(df.LON),list(df.LAT))] 
   idx=df.loc[df.dist==min(df.dist)].index
   #find the tallest stack
+  print (df.dist,min(df.dist),idx)
   if len(idx)>1:
     idx=df.loc[idx].sort_values('HEI',ascending=False).head(1).index
   for v in hdtv+tims:
@@ -242,7 +255,7 @@ fnames={'BPIP_i':[fn,'fort.10']}
 fnames.update({'BPIP_o':['build.txt','example2.csv','fort.12','fort.14']})
 
 
-dx=round(min([250,max(HEI)]),-1)*2
+dx=max(10,round(min([250,max(HEI)]),-1)*2)
 x0n,y0n=(round(P[0][i]-dx*40/2, -2) for i in range(2))
 x0x,y0x=(round(P[0][i]+dx*40/2, -2) for i in range(2))
 
@@ -307,7 +320,7 @@ if temis<=0.01:
   if len(RECroot)>0:case=RECroot
   print ('total emis too small, temis='+str(temis)+' for point='+case)
   print ('</body></html>')
-  sys.exit('temis='+str(temis))
+#  sys.exit('temis='+str(temis))
 for c in cole:
   sp=c.replace('_EMI','')
   sp0=sp.replace('X','2')
@@ -414,8 +427,12 @@ for inp in inps:
   oname=iname.replace('inp','out')
   if run_mmif==False and run_aermap==False:
     cmd ='cd '+pth+';'
-    cmd+= AERMOD+' '+inp+' '+oname+OUT+' & disown'
-    os.system(cmd)
+    cmd+= AERMOD+' '+inp+' '+oname+OUT+' & disown;echo $!'
+    pid=subprocess.check_output(cmd,shell=True).decode('utf8').strip('\n')
+    if inp==inps[-1]:
+      cmd=CHK+' '+pth+' '+pid+' & disown'
+      os.system(cmd)
+      
 if run_mmif==False:
   m=str(int(nx*nx*25/318/318))
   print (" <p>AERMOD_results: The AERMOD process should be ended in "+m+" min(NOx/OLM will take time) for XYINC "+ \
@@ -455,30 +472,19 @@ formats={'grd':'SURFER ascii grd file',
 	'zip':'resultant zip file',
 }
 tools={'grd':'SURFER',
-'10':'text editors',
-'12':'text editors',
-'14':'text editors',
-'csv':'text editors',
-'out':'text editors',
-'OUT':'text editors',
-'PLT':'text editors, gridded by SURFER or <a href=\"http://114.32.164.198/dat2kml.html">dat2kml</a>',
-'PST':'text editors, huge, do not open',
-'inp':'text editors',
-'dem':'text editors',
-'REC':'text editors',
-'txt':'text editors',
-'pfl':'text editors',
-'sfc':'text editors',
-'SUM':'text editors',
 'zip':'archive openner',
-'kml':'<a href=\"http://114.32.164.198/LeafletDigitizer/index.html">Digitizer</a>'
+'kml':'<a href=\"http://114.32.164.198/LeafletDigitizer/index.html" target="_blank">Digitizer</a>',
+'PLT':'text editors, gridded by SURFER or <a href=\"http://114.32.164.198/dat2kml.html" target="_blank">dat2kml</a>',
+'PST':'text editors, huge, do not open',
 }
+tools.update({i:'text editors' for i in [ '10', '12', '14', 'csv', 'out', 'OUT', 'inp', 'dem', 'REC', 'txt', 'pfl', 'sfc', 'SUM'] })
 fnameo={}
 for prs in fnames:
   fns=[]
   for fn in fnames[prs]:
     fni=(pth+fn).replace(WEB,'../../../')
-    fns.append('<a data-auto-download href=\"'+fni+'\">'+fn+'</a>')
+    fns.append('<a href=\"'+fni+'\" target="_blank">'+fn+'</a>')
+#    fns.append('<a data-auto-download href=\"'+fni+'\">'+fn+'</a>')
   fnameo.update({prs:fns})
 #fname table in order of process
 print ('<table BORDER=2 RULES=ROWS FRAME=BOX width="70%">')

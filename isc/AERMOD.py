@@ -7,18 +7,19 @@ import cgitb
 import subprocess
 import tempfile as tf
 
-WEB='/Library/WebServer/Documents/'
+WEB='/Library/WebServer/Documents'
 CGI='/Library/WebServer/CGI-Executables/isc/'
 AERMOD='/Users/1.PlumeModels/AERMOD/aermod_source/aermod.exe'
 ISCST3='/Users/1.PlumeModels/ISC/short_term/src/iscst3.exe'
-DAT2KML='/opt/local/bin/dat2kml.py'
+WAITC=WEB+'/isc_results/waitc.cs'
 print 'Content-Type: text/html\n\n'
 print open(CGI+'header.txt','r')
-npid1=subprocess.check_output('ps -ef|grep aermod|grep -v grep|wc -l',shell=True).decode('utf8').strip('\n')
-npid2=subprocess.check_output('ps -ef|grep iscst3|grep -v grep|wc -l',shell=True).decode('utf8').strip('\n')
-npid=int(npid1)+int(npid2)
-if npid>=5:
-  print 'total '+str(npid)+' iscst or aermod processes are running, please wait. </br>'
+try:
+  cpu=float(subprocess.check_output('/opt/local/bin/cpu',shell=True).decode('utf8').strip('\n').strip('%'))
+except:
+  sys.exit('cpu fail')
+if cpu>=550:
+  print 'total kerels used: '+str(cpu)+'%,  too many iscst or aermod processes are running, please wait. </br>'
   print '</body></html>'
   sys.exit()
   
@@ -28,7 +29,8 @@ ROT='isc3'
 if model=='AERMOD': ROT='arem'
 
 ran=tf.NamedTemporaryFile().name.replace('/','').replace('tmp','')
-pth=WEB+'isc_results/'+ROT+'_'+ran+'/'
+rrn='/isc_results/'+ROT+'_'+ran+'/'
+pth=WEB+rrn
 OUT='>> '+pth+'isc.out'
 os.system('mkdir -p '+pth)
 
@@ -53,36 +55,29 @@ sname=subprocess.check_output('grep SUMMFILE '+inames[0]+'|awk "{print \$NF}"',s
 ext=inames[0].split('.')[-1]
 iname=inames[0].split('/')[-1]
 oname=iname.replace(ext,'out')
-cmd ='cd '+pth+';'	  
+kname=[p+'.kml'for p in pname[:]]
+#execution of model
+
+cmd ='cd '+pth+';'
+#progression checking webpage
+cmd+='cp '+ WEB + '/isc_results/demo/autorefresh.html prog.html;'
+cmd+='sed -ie "s/RAND/'+ran+'/g" prog.html;'
 cmd+=RUNMDL+' '+iname+' '+oname+OUT+';'
-kname=[]
-#for p in pname[:]:
-#  cmd+=DAT2KML+' -f '+p+';'
-#  kname.append(p+'.kml')
 cmd=cmd.strip(';')  
 os.system('echo "'+cmd+'"'+OUT)
-r=os.system(cmd+OUT+'&disown')
-if r!=0:
-  print """Something wrong in Model excutions, see <a data-auto-download href="%s">%s</a>
+pid=subprocess.check_output(cmd+OUT+'&disown;echo $!',shell=True).decode('utf8').strip('\n')
+if len(pid)==0:
+  print """Something wrong in Model excutions, see <a href="%s" target="_blank">%s</a>
   </body></html>
-  """  % (ename.replace(WEB,'../../'),ename.split('/')[-1])
+  """  % (rrn+ename,ename)
   sys.exit()
+# The model is running, initiate the waitc.cs to generate log.out for showing progress
+cmd ='cd '+pth+';'
+cmd+='time '+WAITC+' '+pth+' '+pid+' &disown'
+os.system(cmd)
 
-model=model.lower()
-pid=subprocess.check_output('ps -ef|grep '+model+'|grep -v grep|tail -n1|/opt/local/bin/awkk 2',shell=True).decode('utf8').strip('\n')
-print 'pid= '+pid+'</br>'
-ndays='365'
-ifirst=1
-while True:
-  now=subprocess.check_output('grep "Data For Day No." '+pth+'isc.out|tail -n2|head -n1',shell=True).decode('utf8').strip('\n')
-  print now+'</br>'
-  break
-  if '20' in now and ifirst==1:
-    yr=int(now.split()[-1])
-    if yr%4==0:ndays='366'
-    ifirst=0
-  if ndays in now:break
-  os.system('sleep 30s')
+print 'pid= '+pid+'<a href="'+rrn+'prog.html" target="_blank">(check progress)</a></br>'
+
 fnames=[ename,oname,pth+'isc.out']+pname+sname+kname
 print """\
   <p>Model_results: The Model process should be ended in 3 min. After that You may click:</br>
@@ -90,8 +85,8 @@ print """\
 for fn in fnames:
   fname=pth+fn
   print """\
-  <a data-auto-download href="%s">%s</a></br>
-  """  % (fname.replace(WEB,'../../../'),fname.split('/')[-1])
+  <a href="%s" target="_blank">%s</a></br>
+  """  % (fname.replace(WEB,'../../..'),fname.split('/')[-1])
 print '</body></html>'
 
 
