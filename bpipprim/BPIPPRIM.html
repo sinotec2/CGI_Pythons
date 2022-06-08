@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>BPIPPRIME</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
+
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css">
+
+    <script src="filepicker/samples/jquery.example.js"></script>
+    <!script src="../../mugen.js/src/mugine.js"></script>
+    <script src="filepicker/src/js/jquery.filepicker.js"></script>
+    <link rel="stylesheey" href="filepicker/src/css/filepicker.default.css">
+
+    <script>
+       $(document).ready(function() {
+         $("input[type='file'].filepicker-jquery-ui").filepicker({
+           style: 'jquery-ui'
+         });
+       });
+    </script>
+
+    <style>
+      .filepicker-preview .thumbnail {
+        max-width: 100px;
+        display: inline-block;
+      }
+      .filepicker-preview .thumbnail img {
+        max-width: 100%;
+      }
+    </style>
+    <script>
+    $(document).ready(function(){
+    // Get value on button click and show alert
+        $("#myBtn").click(function(){
+            var str = $("#myInput").val();
+            alert(str);
+        });
+    });
+    </script>
+<style> #SIDE { width:300px; float:right; } </style>
+  </head>
+
+  <body>
+    <header class="subhead" id="overview">
+      <div class="container">
+        <h1><a href=aermods.html>
+                BPIPPRIME 遠端計算服務</a>
+                </h1>
+        <p class="lead">
+                BPIPPRIME是美國環保署煙流模式系統之一環。在輸入欄內貼上BPIP設定內容(或上傳bpip.inp檔)， 遠端系統將執行BPIP程式
+，將結果檔案下載貼在模式輸入檔內，即可進行後續ISC/AERMOD之建築物效應模擬。
+        </p>
+<p>bpip.inp檔案範例：<a href="isc_results/fort.10_example">fort.10</a>、
+Process results:<a href="isc_results/fort.12">fort.12</a>、
+Execution Summary:<a href="isc_results/fort.14">fort.14</a>、
+SO listings:<a href="isc_results/build.txt">build.txt</a>
+</p>
+      </div>
+    </header>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-6">
+        <form id="upload" name="upload" method="POST" enctype="multipart/form-data" action="/cgi-bin/isc/bpipprim.py">
+    <label for="iscinp">
+貼上設定內容(或開啟BPIP.INP文字檔)
+        </label>
+        <input type="text" id='iscinp' name="iscinp" /><br />
+           <p><input data-label="File:" class="filepicker-jquery-ui" type="file"
+                   placeholder="Select a file..." multiple="multiple" name="filename"/> </p>
+           <p style="text-align:center;"> <input type="submit" value="Run and Revise Links" /></p>
+        </form><p>       </p><p>         </p>
+                <p>Contact: Dr. Yungchuan Kuang, sinotec2@gmail.com or visit <a href="https://www.evernote.com/shard/s125/sh/162deec8-edc3-4516-87d2-a0efda7764a4/e0841e0b1e62e2c29c130da0625af7cf">Dr.Kuang's Evernote</a></p>
+         </div>
+
+<table width="80%" class="properties">
+  <tr>
+    <th scope="row" width="50%">設定內容 </th>
+    <th scope="row" width="30%">說明 </th>
+  </tr>
+<tr><td>'BPIP input file with  1 bldg and  1 stacks,originated at [170249.3,2531503.5](TWD97m).'</td>
+<td>個案之文字說明[(原點座標)]將用在後續遠端計算 </td></tr>
+<tr><td>'P'</td><td>啟動PRIME機制 </td></tr>
+<tr><td>'METERS' 1.00</td><td>單位及比例  </td></tr>
+<tr><td>'UTMN',  345</td><td>座標系統與旋轉角度(正北到正y方向之順時針夾角)</td></tr>
+<tr><td>2</td><td>建築物個數 </td></tr>
+<tr><td>'b1' 1   4.9</td><td>建築物名稱、圈數及地表高程(m) </td></tr>
+<tr><td>4    40</td><td>頂點個數及建築高(m) </td></tr>
+<tr><td> 0.0    0.0</br> 0.0  -73.7</br> 90.5  -73.7</br> 90.5    0.0</td><td>
+建築物頂點之相對座標 </br>
+(x,y)
+</td></tr>
+<tr><td>1</td><td>煙囪個數 </td></tr>
+<tr><td>'hs1'    4.9  250.0  -56.0  -64.6 </td><td>煙囪名稱、地表高程、煙囪高度及座標 </td></tr>
+      </div>
+    </div>
+<div id="SIDE"> <img src="/isc_results/fort10.png" width="300" height="200" style="border:2px #ccc solid;padding:5px;" >   </div>
+
+  </body>
+
+</html>
