@@ -25,6 +25,7 @@ if len(STR)<=4: #in case of input a SO/RE file
     fn = os.path.basename(fileitem.filename)
     open(pth+fn, 'wb').write(fileitem.file.read())
 else:	
+    fn='fort.10'
     with open(pth+fn,'w') as ftext:
       ftext.write(STR)
 cmd ='cd '+pth+';'	  
