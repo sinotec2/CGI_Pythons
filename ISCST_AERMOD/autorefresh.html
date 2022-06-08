@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ISC3/AERMOD progress</title>
+</head>
+
+<body>
+    <h2>Welcome To ISC3/AERMOD Remote Center</h2>
+    <p>The process ID PID has been done, please check the results.</p>
+</body>
+
+</html>
+(base)
+root@114-32-164-198 /Library/WebServer/Documents/isc_results/demo
+# cat autorefresh.html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>isc3/aermod progress</title>
+    <meta http-equiv="refresh" content="10">
+</head>
+
+<body>
+    <h2>Welcome To ISC3/AERMOD Remote Center</h2>
+    <p>The log will reload after 10s.</p>
+    <object height=300 width=950 type='text/plain' border=0 data=/isc_results/isc3_RAND/log.out></object>
+</body>
+
+</html>
