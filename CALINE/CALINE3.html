@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>caline3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
+
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css">
+
+    <script src="filepicker/samples/jquery.example.js"></script>
+    <!script src="../../mugen.js/src/mugine.js"></script>
+    <script src="filepicker/src/js/jquery.filepicker.js"></script>
+    <link rel="stylesheey" href="filepicker/src/css/filepicker.default.css">
+
+    <script>
+       $(document).ready(function() {
+         $("input[type='file'].filepicker-jquery-ui").filepicker({
+           style: 'jquery-ui'
+         });
+       });
+    </script>
+
+    <style>
+      .filepicker-preview .thumbnail {
+        max-width: 100px;
+        display: inline-block;
+      }
+      .filepicker-preview .thumbnail img {
+        max-width: 100%;
+      }
+    </style>
+    <script>
+    $(document).ready(function(){
+    // Get value on button click and show alert
+        $("#myBtn").click(function(){
+            var str = $("#myInput").val();
+            alert(str);
+        });
+    });
+    </script>
+<style> #SIDE { width:500px; float:right; } </style>
+  </head>
+
+  <body>
+    <header class="subhead" id="overview">
+      <div class="container">
+        <h1>
+                <a href="aermods.html" target="_blank">caline3遠端計算服務</a>
+                </h1>
+        <p class="lead">
+           輸入主控檔(範例如下)或<a href="http://114.32.164.198/LeafletDigitizer/index.html" target="_blank">數位化</a>之路段接受點kml檔案。
+        </p>
+      </div>
+    </header>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-6">
+        <form id="upload" name="upload" method="POST" enctype="multipart/form-data" action="/cgi-bin/caline/CALINE.py">
+           <p><input data-label="File:" class="filepicker-jquery-ui" type="file"
+                   placeholder="Run stream/KML file" multiple="multiple" name="filename1"/> </p>
+           <p style="text-align:center;"> <input type="submit" value="Run caline3 Model (do not reload)" /></p>
+        </form><p>       </p><p>         </p>
+                <p>Contact: Dr. Yungchuan Kuang, sinotec2@gmail.com or visit <a href="https://sinotec2.github.io/Focus-on-Air-Quality/PlumeModels/CALINE/CALINE3IO/" target="_blank">Dr.Kuang's github.io</a></p>
+         </div>
+
+<table width="40%" class="properties">
+  <tr>
+    <th scope="row" width="10%">類別 </th>
+    <th scope="row" width="20%">CALINE設定內容 </th>
+    <th scope="row" width="10%">說明 </th>
+  </tr>
+<tr><td>輸入檔案 </td>
+<td><a href="http://114.32.164.198/caline_results/caline.inp" target="_blank">caline.inp</a>
+<td>模式主控檔1</td></tr>
+<tr><td></td><td><a href="http://114.32.164.198/caline_results/calines.inp" target="_blank">calines.inp</a></td>
+<td>模式主控檔2</td></tr>
+<tr><td></td><td><a href="http://114.32.164.198/caline_results/example.kml" target="_blank">example.kml</a></td>
+<td>路段接受點kml</td></tr>
+<tr><td>輸出檔 </td>
+<td><a href="/caline_results/caline.out" target="_blank">caline.out</a></td>
+<td>程式螢幕輸出1 </td></tr>
+<tr><td> </td>
+<td><a href="/caline_results/calines.out" target="_blank">calines.out</a></td>
+<td>程式螢幕輸出2 </td></tr>
+      </div>
+    </div>
+<div id="SIDE"> <img src="/caline_results/caline3.png" width="400" height="500" style="border:2px #ccc solid;padding:5px;" >   </div>
+
+  </body>
+
+</html>
