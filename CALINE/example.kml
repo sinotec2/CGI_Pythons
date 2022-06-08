@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://www.opengis.net/kml/2.2"><Document>
+<Placemark><ExtendedData><Data name="name"><value>r1 1.8</value></Data></ExtendedData><Point><coordinates>121.49832844734193,25.062810780135926</coordinates></Point></Placemark>
+<Placemark><ExtendedData><Data name="name"><value>r2 1.8</value></Data></ExtendedData><Point><coordinates>121.49930477142335,25.06315093245518</coordinates></Point></Placemark>
+<Placemark><ExtendedData><Data name="name"><value>r3 1.8</value></Data></ExtendedData><Point><coordinates>121.50035619735719,25.06353967680648</coordinates></Point></Placemark>
+<Placemark><ExtendedData><Data name="name"><value>r4 1.8</value></Data></ExtendedData><Point><coordinates>121.50136470794679,25.063977012727328</coordinates></Point></Placemark>
+<Placemark><ExtendedData><Data name="name"><value>r5 1.8</value></Data></ExtendedData><Point><coordinates>121.50270044803621,25.064424065610623</coordinates></Point></Placemark>
+<Placemark><ExtendedData><Data name="name">
+<value>ChongXinRd FL 5000 30 0 50</value></Data></ExtendedData>
+	<LineString><coordinates>
+	121.49552822113039,25.061576505218685 
+	121.49668693542482,25.061770880046243 
+	121.49784564971925,25.062217940979476 
+	121.5031671524048,25.0641227910207 
+	121.504282951355,25.064025605511056 
+	121.50851011276247,25.063403616423827
+</coordinates></LineString></Placemark>
+<Placemark><ExtendedData><Data name="name">
+<value>zhengyinanrd FL 2000 30 0  20</value></Data></ExtendedData><LineString><coordinates>
+	121.49720191955568,25.0644920952542 
+	121.49833917617799,25.06007980871824
+</coordinates></LineString></Placemark>
+<Placemark><ExtendedData><Data name="name">
+<value>xinyistr FL 500 30 0 10</value></Data></ExtendedData><LineString><coordinates>
+	121.49569988250734,25.064278287675766 
+	121.50314569473268,25.065405632522523
+</coordinates></LineString></Placemark>
+<Placemark><ExtendedData><Data name="name">
+<value>sanhesanrd FL 1000 30 0 10</value></Data></ExtendedData><LineString><coordinates>
+	121.50183677673341,25.06626085272746 
+	121.5030598640442,25.061770880046243
+</coordinates></LineString></Placemark>
+<Placemark><ExtendedData><Data name="name">
+<value>HuanHeNanRd BR 10000 30 10 40</value></Data></ExtendedData><LineString><coordinates>
+	121.50454044342042,25.06709663034104 
+	121.50426149368288,25.064064479724163 
+	121.50218009948732,25.059691053389546
+</coordinates></LineString></Placemark></Document></kml>
