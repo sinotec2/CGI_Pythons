@@ -91,3 +91,5 @@ for fn in fnames:
   """  % (fname,fn)
 print '</body></html>'
 
+sys.stdout.close()
+sys.exit('fine!')
