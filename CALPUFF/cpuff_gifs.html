@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">  
+    <title>CALPUFF Results</title>
+    
+    <!-- PAGE BASE CSS -->
+    <style type="text/css"> a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+        
+    *{box-sizing:border-box;line-height:normal}body{background:#fcfcfc;font-family:sans-serif;color:#303030}.container:after{content:"";display:block;clear:both}.header{text-align:center;padding:40px 20px 20px;background:#343434;border-bottom:4px solid #7dc242;position:relative;z-index:2;overflow:hidden;color:#fefefe;}#logo{border:0;background:#343434;padding:0;position:relative;bottom:-5px;width:29px;margin-right:5px}svg{filter:blur(1px);opacity:.015;position:absolute;top:0;left:0;right:0;bottom:0;transform:rotate(3deg) scale(1.35);z-index:-1}.left-shade{fill:#afafaf}.right-shade{fill:#bfbfbf}.header h2{font-size:34px;margin-top:-12px;}.header h4{font-size:18px;font-weight:400;line-height:135%;margin:15px 0;color:#f0f0f0;}.header h4 a{color:#cfcfcf;}.content{max-width:1200px; margin:auto;}
+    </style>
+    
+    
+    
+    
+    <!-- //////////////////////////////////////////////// -->
+    <!-- REQUIRED ELEMENTS -->
+    
+    <link href="lc_gif_player.css" rel="stylesheet">
+    <script type="text/javascript" src="lc_gif_player.pack.js"></script>
+    <script type="text/javascript" src="libgif/libgif.min.js"></script>
+    <script type="text/javascript" src="libgif/libgif.js"></script>
+    
+    <!-- //////////////////////////////////////////////// -->
+    
+    
+    
+    <style>
+	.content {
+		display: flex;
+		align-items: center;
+	}
+	.content > div {
+		border: 20px solid transparent;
+		margin: auto;
+		background-clip: padding-box;
+	}
+    </style>
+<style> #SID2 { width:300px; position:absolute; top:220px; left:200px;  } </style>	
+<script src="js/jquery.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h2>
+                <!-- img id="logo" src="example_gifs/logo.png" /-->
+               臺灣地區CPUFF增量模擬結果
+            </h2>
+            <h4><a href='https://sinotec2.github.io/Focus-on-Air-Quality/TrajModels/CALPUFF/calpuff_remote/'>CALPUFF</a> Simulation Results</h4><div id="text1">downloading gifs, need about 40s, please wait... <span id="sec">40</span> </div>
+            
+            <svg width="100%" height="100%">
+                <pattern id="pattern-cubes" x="0" patternUnits="userSpaceOnUse" viewBox="0 0 10 16" height="100" width="116" y="68">
+                    <g id="cube">
+                        <path class="left-shade" d="M0 0l5 3v5l-5 -3z" />
+                        <path class="right-shade" d="M10 0l-5 3v5l5 -3" />
+                    </g>
+                    <use x="5" y="8" xlink:href="#cube" />
+                    <use x="-5" y="8" xlink:href="#cube" />
+                </pattern>
+                <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-cubes)" />
+            </svg>
+        </div>
+        
+        <div class="content">
+              
+        
+            <!-- //////////////////////////////////////////////// -->
+            <!-- REQUIRED HTML -->
+        
+            <div class="target target_1" style="max-height: 400px;">
+                <img src="" rel:animated_src="./example_gifs/SO2.gif" />
+            </div>
+            <div class="target target_2" style="max-height: 400px;">
+                <img src="" rel:animated_src="./example_gifs/NO2.gif" />
+            </div>
+            <div class="target target_3" style="max-height: 400px;">
+                <img src="" rel:animated_src="./example_gifs/SO4.gif" />
+            </div>
+            <div class="target target_4" style="max-height: 400px;">
+                <img src="" rel:animated_src="./example_gifs/PM10.gif" />
+            </div>
+        </div>
+
+            <!-- //////////////////////////////////////////////// -->
+        
+        
+    </div>
+    
+    
+    
+    
+    <!-- //////////////////////////////////////////////// -->
+    <!-- REQUIRED JAVASCRIPT -->
+    <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) {
+        
+        // no autoplay - no extra class - no prev/next commands
+        // lc_gif_player('.target_1', false, '', ['move']);
+        
+        // autoplay - no extra class - no fullscreen command
+        lc_gif_player('.target_1', true, '', '');
+        lc_gif_player('.target_2', true, '', '');
+        lc_gif_player('.target_3', true, '', '');
+        lc_gif_player('.target_4', true, '', '');
+        
+    });
+    </script>
+    <!-- //////////////////////////////////////////////// -->
+
+    <script type="text/javascript">
+        $(function(){
+        var time = $('#sec').html();
+        var interval = setInterval(function () {
+        --time;
+        $('#sec').html(time);
+        if (time <= 0) {
+        $('#text1').hide();
+        clearInterval(interval);
+        }
+        }, 1000);
+        });
+        </script>
+
+</body>
+</html>
