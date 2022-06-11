@@ -39,7 +39,7 @@ print """\
 <p>filename given and save as: <a href="%s">%s</a></br></p>
 """% (fname.replace(WEB,'../../../'),fname.split('/')[-1])
 print """\
-  <p>BPIPPRIN_results: The download process should start shortly. If it doesn't, click:</p>
+  <p>DAT2KML_results: The download process should start shortly. If it doesn't, click:</p>
   """
 for fname in fnames[1:]:
   print """\
