@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>DAT2KML</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+     
+     
+    <script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
+    
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css">
+    
+    <script src="filepicker/samples/jquery.example.js"></script>
+    <!script src="../../mugen.js/src/mugine.js"></script>
+    <script src="filepicker/src/js/jquery.filepicker.js"></script>
+    <link rel="stylesheet" href="filepicker/src/css/filepicker.default.css">
+    
+    <script>
+       $(document).ready(function() {
+         $("input[type='file'].filepicker-jquery-ui").filepicker({
+           style: 'jquery-ui'
+         });
+       });
+    </script>
+    
+    <style>
+      .filepicker-preview .thumbnail {
+        max-width: 100px;
+        display: inline-block;
+      }
+      .filepicker-preview .thumbnail img {
+        max-width: 100%;
+      }
+    </style>
+    <script>
+    $(document).ready(function(){
+    // Get value on button click and show alert
+        $("#myBtn").click(function(){
+            var str = $("#myInput").val();
+            alert(str);
+        });
+    });
+    </script>    
+  <style> #SIDE { width:600px; float:right; } </style>
+  </head>
+  <body>
+    <header class="subhead" id="overview">
+      <div class="container">
+        <h1><a href=aermods.html>dat2kml</a></h1>
+        <p class="lead">
+		Convert ISC/AERMOD PLOTFILE result to KML file and regrid to SURFER grd file</br>
+		ASCII TXT(no matter headerlines), csv (X,Y,C), or a SURFER ASCII .grd file are welcomed.
+        </p>
+      </div>
+    </header>
+  
+    <div class="container">
+    
+    <div id="SIDE"> <img src="isc_results/contours.PNG" width="600" height="300" style="border:2px #ccc solid;padding:5px;" >   </div>
+      <div class="row">
+        <div class="col-md-4">
+		<form enctype="multipart/form-data" action="/cgi-bin/isc/dat2kmlCGI.py" method="post">
+           <p><input data-label="File:" class="filepicker-jquery-ui" type="file" 
+		   placeholder="Select a PLOTFILE/.grd/.csv file..." multiple="multiple"
+		   name="filename"/> </p> 
+		   <p style="text-align:center;"> <input type="submit" value="Run dat2kml" /></p>
+		</form><p>	 </p><p>	 </p>
+		<p>Example PLOTFILE file might be found <a href="isc_results/case_SOX_Y.PLT">here.</a></p>
+		<p>Results KML could be read by <a href="http://114.32.164.198/Leaflet/docs/index.html">Leaflet.</a></p>
+		<p>PLOTFILE or grd file could be overlayed with <a href="https://wiki.openstreetmap.org/wiki/OpenTopoMap">OTM</a> at <a href="http://114.32.164.198/NCLonOTM.html">NCLonOTM</a></p>
+		<p>Contact: Dr. Yungchuan Kuang, sinotec2@gmail.com</p> 
+         </div>
+      </div>
+    </div>
+    
+  </body>
+  
+</html>
