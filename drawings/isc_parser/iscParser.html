@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>ISC_Parser</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+     
+     
+    <script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
+    
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css">
+    
+    <script src="filepicker/samples/jquery.example.js"></script>
+    <!script src="../../mugen.js/src/mugine.js"></script>
+    <script src="filepicker/src/js/jquery.filepicker.js"></script>
+    <link rel="stylesheey" href="filepicker/src/css/filepicker.default.css">
+    
+    <script>
+       $(document).ready(function() {
+         $("input[type='file'].filepicker-jquery-ui").filepicker({
+           style: 'jquery-ui'
+         });
+       });
+    </script>
+    
+    <style>
+      .filepicker-preview .thumbnail {
+        max-width: 100px;
+        display: inline-block;
+      }
+      .filepicker-preview .thumbnail img {
+        max-width: 100%;
+      }
+    </style>
+    <script>
+    $(document).ready(function(){
+    // Get value on button click and show alert
+        $("#myBtn").click(function(){
+            var str = $("#myInput").val();
+            alert(str);
+        });
+    });
+    </script>    
+<style> #SIDE { width:300px; float:right; } </style>
+  </head>
+  
+  <body>
+
+    <header class="subhead" id="overview">
+      <div class="container">
+        <h1>
+	ISC/AERMOD 座標點位之KML轉檔系統
+	</h1>
+        <p class="lead">
+	在輸入欄內貼上設定內容(或上傳bpip.inp檔)， 系統將產生設定內容的kml檔案，點選檔案下載到使用者電腦即可進行
+	google map/openstree繪圖。
+        </p>
+<div id="SIDE"> <img src="/trj_results/messageImage_1611138477493.jpg" width="300" height="200" style="border:2px #ccc solid;padding:5px;" >   </div>
+<div id="SIDE"> <img src="/isc_results/fort10.png" width="300" height="200" style="border:2px #ccc solid;padding:5px;" >   </div>
+<p>排放源(SO/RE)範例：</p>
+<p>SO LOCATION  Cg01   AREA   296192.7  2764060.0  13.4</p>
+<p>SO SRCPARAM  Cg01   3.46E-04   2.0   12  166.7   63</p>
+<p>RE DISCCART        296123 2764056 15.3 1.5</p>
+<p>RE DISCCART        294911 2762966</p>
+<p>系統將輸出Cg01.csv.kml、Cg01R.csv.kml到您的Downloads目錄</p>
+<p>排放源檔案範例：<a href="isc_results/groupA.txt">groupA.txt</a></p>
+<p>bpip.inp檔案範例：<a href="isc_results/fort.10">fort.10</a></p>
+      </div>
+    </header>
+  
+    <div class="container">
+    
+      <div class="row">
+        <div class="col-md-4">
+	<form id="upload" name="upload" method="POST" enctype="multipart/form-data" action="/cgi-bin/isc/isc_parser.py">
+    <label for="iscinp">
+貼上設定內容(或開啟SO/RE/BPIP.INP文字檔)
+        </label>
+        <input type="text" id='iscinp' name="iscinp" /><br />
+           <p><input data-label="File:" class="filepicker-jquery-ui" type="file" 
+		   placeholder="Select a file..." multiple="multiple" name="filename"/> </p> 
+	   <p style="text-align:center;"> <input type="submit" value="Upload and Run parser remotely" /></p>
+	</form><p>	 </p><p>	 </p>
+		<p>Contact: Dr. Yungchuan Kuang, sinotec2@gmail.com</p> 
+		<p>or visit <a href="https://www.evernote.com/shard/s125/sh/59c00121-bf49-087a-95b0-c1671dccc48f/1cf5fcf94ed8cc40b07f5e6a5a370bd0">Dr.Kuang's Evernote</a></p> 
+         </div>
+      </div>
+
+    </div>
+    
+  </body>
+  
+</html>
