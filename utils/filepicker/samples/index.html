@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>MMIF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+     
+     
+    <script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
+    
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css">
+    
+    <script src="jquery.example.js"></script>
+    <!script src="../../mugen.js/src/mugine.js"></script>
+    <script src="../src/js/jquery.filepicker.js"></script>
+    <link rel="stylesheet" href="../src/css/filepicker.default.css">
+    
+    <script>
+       $(document).ready(function() {
+         $("input[type='file'].filepicker-jquery-ui").filepicker({
+           style: 'jquery-ui'
+         });
+       });
+    </script>
+    
+    <style>
+      .filepicker-preview .thumbnail {
+        max-width: 100px;
+        display: inline-block;
+      }
+      .filepicker-preview .thumbnail img {
+        max-width: 100%;
+      }
+    </style>
+    <script>
+    $(document).ready(function(){
+    // Get value on button click and show alert
+        $("#myBtn").click(function(){
+            var str = $("#myInput").val();
+            alert(str);
+        });
+    });
+    </script>    
+
+  </head>
+  
+  <body>
+
+    <header class="subhead" id="overview">
+      <div class="container">
+        <h1>mmif 遠端執行系統</h1>
+        <p class="lead">上傳準備好的mmif.inp，遠端執行mmif程式結束後會由系統電郵結果網址給您(恕僅保留24小時)。
+        </p>
+      </div>
+    </header>
+  
+    <div class="container">
+    
+      <div class="row">
+        <div class="col-md-4">
+		<form enctype="multipart/form-data" action="/cgi-bin/save_file.py" method="post">
+           <p><input data-label="File:" class="filepicker-jquery-ui" type="file" 
+		   placeholder="Select a file..." multiple="multiple"
+		   name="filename"/> </p> 
+           <p> 您的 EMAIL:  
+		   <input type="text" id="myInput" name="emailadd"> <button type="button" id="myBtn">check</button></p>
+		   <p style="text-align:center;"> <input type="submit" value="Upload and Run mmif remotely" /></p>
+		</form><p>	 </p><p>	 </p>
+		<p>Introduction of AERMOD, AERMET, MMIF etc, please visit <a href="https://www.epa.gov/scram/air-quality-dispersion-modeling-related-model-support-programs#mmif"> USEAP SCRAM</a>. </p> 
+		<p>MMIF  <a href="https://www3.epa.gov/ttn/scram/models/relat/mmif/MMIF_Guidance.pdf">User Guide</a> </p> 
+		<p>Contact: Dr. Yungchuan Kuang, sinotec2@gmail.com</p> 
+         </div>
+      </div>
+
+    </div>
+    
+  </body>
+  
+</html>
